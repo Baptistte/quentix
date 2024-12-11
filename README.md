@@ -1,5 +1,3 @@
-Voici le code complet pour le fichier README.md :
-
 # Projet de Solutions Clés en Main
 
 ## À propos du Projet
