@@ -30,7 +30,7 @@ Cloner le projet depuis le dépôt GitHub :
 git clone https://github.com/Baptistte/quentinx.git
 cd quentinx
 
-Étape 2 : Installer les dépendances
+### Étape 2 : Installer les dépendances
 
 Installez les dépendances PHP avec Composer :
 
@@ -41,7 +41,7 @@ Installez les dépendances front-end avec npm :
 npm install
 npm run build
 
-Étape 3 : Configuration
+### Étape 3 : Configuration
 
 Copiez le fichier .env.example pour créer un fichier .env :
 
@@ -55,7 +55,7 @@ Configurez votre fichier .env avec les informations suivantes :
 	•	Base de données : Configurez DB_DATABASE, DB_USERNAME, et DB_PASSWORD.
 	•	Autres paramètres : Configurez des paramètres spécifiques, comme des services externes si nécessaires.
 
-Étape 4 : Préparer la base de données
+### Étape 4 : Préparer la base de données
 
 Créez la base de données et exécutez les migrations :
 
@@ -65,7 +65,7 @@ Optionnel : Insérez des données initiales dans la base de données (si des se
 
 php artisan db:seed
 
-Étape 5 : Lancer le serveur
+### Étape 5 : Lancer le serveur
 
 Lancez le serveur local :
 
