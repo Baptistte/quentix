@@ -18,9 +18,16 @@
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            padding-right: 20px; /* Spacing from the right */
+            justify-content: space-between; /* Align quentix left and links right */
+            padding: 0 20px; /* Spacing for both sides */
             z-index: 50;
+        }
+
+        .navbar .brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: black; /* Tailwind blue */
+            text-decoration: none;
         }
 
         .navbar a {
@@ -50,9 +57,14 @@
 
     <!-- Static Navbar -->
     <div class="navbar">
-        <a href="{{ route('home') }}">🏠 Accueil</a>
-        <a href="#about">📘 À propos</a>
-        <a href="{{ route('register') }}">📝 S'inscrire</a>
+        <!-- Brand Name -->
+        <a href="{{ route('home') }}" class="brand">quentix</a>
+        <!-- Navigation Links -->
+        <div>
+            <a href="{{ route('home') }}">🏠 Accueil</a>
+            <a href="/#about">📘 À propos</a>
+            <a href="{{ route('register') }}">📝 S'inscrire</a>
+        </div>
     </div>
 
     <!-- Main Container -->
