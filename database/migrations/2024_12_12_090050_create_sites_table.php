@@ -6,27 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSitesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Clé étrangère vers la table users
-            $table->string('domain'); // Domaine du site
-            $table->string('status')->default('active'); // Statut (active/inactive)
+            $table->unsignedBigInteger('user_id');
+            $table->string('domain');
+            $table->unsignedBigInteger('statut_id');
+            $table->unsignedBigInteger('server_id');
             $table->timestamps();
 
-            // Clé étrangère
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('statut_id')->references('id')->on('statut_site');
+            $table->foreign('server_id')->references('id')->on('servers');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('sites');
     }

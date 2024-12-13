@@ -71,15 +71,22 @@
                     !
                 </h1>
                 <p class="text-lg text-gray-600 mb-6">
-                    Future phrase d'accroche.
+                    Libérez votre potentiel en ligne avec notre solution WordPress.
                 </p>
-                <a href="#features" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
-                    Démarrer par ici.
-                </a>
+                @auth
+                    <a href="{{ route('user.space') }}" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
+                        Mon espace
+                    </a>
+                @else
+                    <a href="#features" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
+                        Démarrer par ici.
+                    </a>
+                @endauth
+                
             </div>
         </section>
 
-        <!-- Features Section -->
+        
         <section id="features" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Nos Offres</h2>
@@ -92,29 +99,61 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-semibold text-center text-gray-800 mb-2">Déploiement WordPress</h3>
-                        <p class="text-gray-600 text-center">Un site WordPress prêt à l'emploi avec <b>votre</b> touche.</p>
+                        <p class="text-gray-600 text-center mb-4">Un site WordPress prêt à l'emploi avec <b>votre</b> touche.</p>
+                        <ul class="text-gray-600 list-disc list-inside mb-4">
+                            <li>Installation rapide et sécurisée.</li>
+                            <li>Thèmes personnalisés adaptés à votre activité.</li>
+                            <li>Extensions essentielles pour SEO et performances.</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="/wordpress_presentation" class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
+                                Voir plus
+                            </a>
+                        </div>
                     </div>
-
+        
                     <!-- Feature 2 -->
-                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-                        <div class="text-green-500 mb-4">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white bg-opacity-70 backdrop-blur-sm"></div>
+                        <div class="relative z-10 text-green-500 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21l-6-6 6-6M21 16h-3m0 0a3 3 0 00-3-3H9m0 0H5m4 0V5a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2h-8a2 2 0 01-2-2v-4z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-center text-gray-800 mb-2">Gestion Odoo</h3>
-                        <p class="text-gray-600 text-center">Optimisez votre entreprise avec notre gestion d'ERP Odoo.</p>
+                        <h3 class="relative z-10 text-xl font-semibold text-center text-gray-800 mb-2">Gestion Odoo</h3>
+                        <p class="relative z-10 text-gray-600 text-center mb-4">Optimisez votre entreprise avec notre gestion d'ERP Odoo.</p>
+                        <ul class="relative z-10 text-gray-600 list-disc list-inside mb-4">
+                            <li>Gestion complète des ventes et des achats.</li>
+                            <li>Suivi avancé des stocks et logistique.</li>
+                            <li>Rapports et analyses en temps réel.</li>
+                        </ul>
+                        <div class="relative z-10 text-center">
+                            <button class="px-6 py-2 bg-gray-400 text-white font-semibold rounded-lg cursor-not-allowed">
+                                Prochainement
+                            </button>
+                        </div>
                     </div>
-
+        
                     <!-- Feature 3 -->
-                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-                        <div class="text-red-500 mb-4">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white bg-opacity-70 backdrop-blur-sm"></div>
+                        <div class="relative z-10 text-red-500 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21l-6-6 6-6M21 16h-3m0 0a3 3 0 00-3-3H9m0 0H5m4 0V5a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2h-8a2 2 0 01-2-2v-4z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-center text-gray-800 mb-2">Hébergement Cloud</h3>
-                        <p class="text-gray-600 text-center">Un hébergement rapide, sécurisé et scalable pour vos projets.</p>
+                        <h3 class="relative z-10 text-xl font-semibold text-center text-gray-800 mb-2">Hébergement Cloud</h3>
+                        <p class="relative z-10 text-gray-600 text-center mb-4">Un hébergement rapide, sécurisé et scalable pour vos projets.</p>
+                        <ul class="relative z-10 text-gray-600 list-disc list-inside mb-4">
+                            <li>Serveurs haute performance pour vos applications.</li>
+                            <li>Sauvegardes automatiques et sécurisées.</li>
+                            <li>Support technique 24/7.</li>
+                        </ul>
+                        <div class="relative z-10 text-center">
+                            <button class="px-6 py-2 bg-gray-400 text-white font-semibold rounded-lg cursor-not-allowed">
+                                Prochainement
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
