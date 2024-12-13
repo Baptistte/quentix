@@ -5,6 +5,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -23,4 +24,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function subscriptionPlan()
+    {
+        return $this->belongsTo(Plan::class, 'subscription_plan_id');
+    }
+
+    public function sites()
+    {
+        return $this->hasMany(Site::class);
+    }
 }

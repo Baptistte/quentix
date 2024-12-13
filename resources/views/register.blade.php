@@ -59,7 +59,7 @@
     <!-- Static Navbar -->
     <div class="navbar">
         <!-- Brand Name -->
-        <a href="{{ route('home') }}" class="brand">quentix</a>
+        <a href="{{ route('home') }}" class="brand">Quentix</a>
         <!-- Navigation Links -->
         <div>
             <a href="{{ route('home') }}">🏠 Accueil</a>
