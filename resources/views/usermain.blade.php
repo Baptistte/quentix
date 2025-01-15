@@ -76,9 +76,12 @@
                 <a href="#subscription" class="text-gray-600 hover:text-blue-500 transition">Mon Abonnement</a>
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
-                    <button type="submit"
-                            class="px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded-lg shadow-md hover:bg-red-600 transition">
-                        Déconnexion
+                    <button type="submit" class="flex items-center text-gray-600 hover:text-red-500 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" fill="currentColor">
+                            <polygon points="77.155 272.034 351.75 272.034 351.75 272.033 351.75 240.034 351.75 240.033 77.155 240.033 152.208 164.98 152.208 164.98 152.208 164.979 129.58 142.353 15.899 256.033 15.9 256.034 15.899 256.034 129.58 369.715 152.208 347.088 152.208 347.087 152.208 347.087 77.155 272.034" />
+                            <polygon points="160 16 160 48 464 48 464 464 160 464 160 496 496 496 496 16 160 16" />
+                        </svg>
+                        <span class="ml-2">Déconnexion</span>
                     </button>
                 </form>
             </nav>
@@ -117,7 +120,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    <span>Voir les abonnements</span>
+                    <span>Ajouter un abonnement</span>
                     @unless($subscription)
                         <div class="add-card-message">Vous n'avez pas d'abonnement actif.</div>
                     @endunless
