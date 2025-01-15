@@ -7,6 +7,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Inclure Tailwind CSS --}}
     <style>
         /* Background Wrapper */
+        html {
+            scroll-behavior: smooth;
+        }
         .blur-bg {
             background-image: url('/images/new_main_bg.jpg');
             background-size: cover;
@@ -205,7 +208,7 @@
     <!-- Footer -->
     <footer class="bg-gray-800 py-6 sticky bottom-0 z-50">
         <div class="container mx-auto px-6 text-center text-white">
-            <p>&copy; 2024 Quentix. Tous droits réservés.</p>
+            <p>&copy; 2025 Quentix. Tous droits réservés.</p>
         </div>
     </footer>
 
