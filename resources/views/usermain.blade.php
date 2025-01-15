@@ -87,6 +87,18 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-12 flex-grow space-y-12">
+
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">
+            Bienvenue sur Quentix 
+            <span class="relative inline-block">
+                <span class="absolute inset-x-0 bottom-0 h-full bg-blue-300 rounded"></span>
+                @auth
+                    <span class="relative">{{ Auth::user()->name }}</span>
+                @endauth
+            </span>
+            !
+        </h1>
+
         <!-- User Information Section -->
         <section id="profile" class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Mes Informations</h2>
