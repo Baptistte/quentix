@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSpaceController;
 
 use App\Http\Controllers\SiteSolutionController;
+use App\Http\Controllers\SubscriptionController;
 
 // Page d'accueil accessible à tous
 Route::get('/', function () {
@@ -21,6 +22,8 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::get('/wordpress_presentation', [SiteSolutionController::class, 'wordpress'])->name('solutions.wordpress');
+
+Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
 
 // Routes protégées par 'auth'
 Route::middleware('auth')->group(function () {
