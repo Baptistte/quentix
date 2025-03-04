@@ -1,181 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Tableau de Bord</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Inclure Tailwind CSS --}}
+    <title>Tableau de Bord - Quentix</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .help-tab {
+        /* Styles généraux */
+        body {
+            background: linear-gradient(to bottom, #6B21A8, #EDE9FE);
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            color: black;
+            width: 250px;
+            height: 100vh;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #2563eb;
-            color: white;
-            font-weight: bold;
-            border-radius: 25px;
-            padding: 10px 20px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-            z-index: 50;
-        }
-
-        .help-tab:hover {
-            background-color: #1e40af;
-        }
-
-        .add-card {
-            width: 150px;
-            height: 150px;
+            top: 0;
+            left: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #94a3b8; /* Tailwind color for gray-400 */
-            border-radius: 12px; /* Slightly larger for rounded corners */
-            background-color: #f1f5f9; /* Tailwind color for gray-50 */
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 12px 0;
+            transition: 0.3s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            transform: translateX(5px);
+        }
+
+        .sidebar .logo {
             text-align: center;
-            transition: background-color 0.3s ease;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            height: 25px;
         }
 
-        .add-card:hover {
-            background-color: #e2e8f0; /* Tailwind color for gray-100 */
+        /* Contenu principal */
+        .main-content {
+            margin-left: 270px;
+            padding: 40px;
         }
 
-        .add-card svg {
-            width: 50px; /* Slightly larger icon */
-            height: 50px;
-            color: #2563eb; /* Tailwind color for blue-500 */
+        .main-content h1 {
+            margin-bottom: 40px;
         }
 
-        .add-card span {
-            margin-top: 10px;
-            font-size: 16px; /* Tailwind text-base */
-            font-weight: 600; /* Tailwind font-semibold */
-            color: #2563eb;
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
         }
 
-        .add-card-message {
-            font-size: 14px; /* Tailwind text-sm */
-            color: #64748b; /* Tailwind gray-500 */
-            text-align: center;
-            margin-top: 6px;
+        .section:hover {
+            transform: translateY(-5px);
         }
+
+        /* Boutons */
+        .btn-primary {
+            background: #6B21A8;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #5A1A91;
+        }
+
+        .status-badge {
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #22C55E;
+            color: white;
+        }
+
+        .status-inactive {
+            background: #EF4444;
+            color: white;
+        }
+        #bottomFooter {
+            justify-content: end;
+            align-content: flex-end;
+            height: 190px;
+        }
+
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
+<body>
 
-    <!-- Navbar -->
-    <header class="sticky top-0 bg-white shadow-md z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-gray-800">Quentix</a>
-            <nav class="space-x-6 flex items-center">
-                <a href="#profile" class="text-gray-600 hover:text-blue-500 transition">Mon Profil</a>
-                <a href="#solutions" class="text-gray-600 hover:text-blue-500 transition">Mes Solutions</a>
-                <a href="#subscription" class="text-gray-600 hover:text-blue-500 transition">Mon Abonnement</a>
-                <form action="{{ route('logout') }}" method="POST" class="inline">
-                    @csrf
-                    <button type="submit" class="flex items-center text-gray-600 hover:text-red-500 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512" fill="currentColor">
-                            <polygon points="77.155 272.034 351.75 272.034 351.75 272.033 351.75 240.034 351.75 240.033 77.155 240.033 152.208 164.98 152.208 164.98 152.208 164.979 129.58 142.353 15.899 256.033 15.9 256.034 15.899 256.034 129.58 369.715 152.208 347.088 152.208 347.087 152.208 347.087 77.155 272.034" />
-                            <polygon points="160 16 160 48 464 48 464 464 160 464 160 496 496 496 496 16 160 16" />
-                        </svg>
-                        <span class="ml-2">Déconnexion</span>
-                    </button>
-                </form>
-            </nav>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="flex justify-center">
+            <a href="/" class="flex items-center">
+                <img src="{{ asset('images/logoQuentixsansRouNoir.svg') }}" alt="Quentix Logo" class="logo">
+            </a>
         </div>
-    </header>
+        <a href="#profile">👤 Mon Profil</a>
+        <a href="#solutions">🚀 Mes Solutions</a>
+        <a href="#subscription">📜 Mon Abonnement</a>
+        <a href="/">🏠 Accueil</a>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-12 flex-grow space-y-12">
-
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">
-            Bienvenue sur Quentix 
-            <span class="relative inline-block">
-                <span class="absolute inset-x-0 bottom-0 h-full bg-blue-300 rounded"></span>
-                @auth
-                    <span class="relative">{{ Auth::user()->name }}</span>
-                @endauth
-            </span>
-            !
-        </h1>
-
-        <!-- User Information Section -->
-        <section id="profile" class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Mes Informations</h2>
-            <div class="text-gray-700">
-                <p><strong>Nom :</strong> {{ Auth::user()->name }}</p>
-                <p><strong>Email :</strong> {{ Auth::user()->email }}</p>
-                <p><strong>Date d'inscription :</strong> {{ Auth::user()->created_at->format('d/m/Y') }}</p>
-            </div>
-        </section>
-
-        <!-- Current Subscription Section -->
-        <section id="subscription" class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Mon Abonnement</h2>
-            <div class="flex flex-wrap gap-4">
-                <a href="{{ route('subscriptions.index') }}" class="add-card">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span>Ajouter un abonnement</span>
-                    @unless($subscription)
-                        <div class="add-card-message">Vous n'avez pas d'abonnement actif.</div>
-                    @endunless
-                </a>
-                @if($subscription)
-                    <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                        <p><strong>Type d'abonnement :</strong> {{ $subscription->plan_name }}</p>
-                        <p><strong>Prix :</strong> {{ $subscription->price }}€ / mois</p>
-                        <p><strong>Date de renouvellement :</strong> {{ $subscription->renewal_date->format('d/m/Y') }}</p>
-                    </div>
-                @endif
-            </div>
-        </section>
-
-        <!-- Deployed Solutions Section -->
-        <section id="solutions" class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Mes Solutions Déployées</h2>
-            <div class="flex flex-wrap gap-4">
-                <a href="{{ route('solutions.wordpress') }}" class="add-card">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span>Ajouter une solution</span>
-                    @if(!isset($solutions) || !$solutions->count())
-                        <div class="add-card-message">Aucune solution déployée.</div>
-                    @endif
-                </a>
-                @if(isset($solutions) && $solutions->count())
-                    @foreach($solutions as $solution)
-                        <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
-                            <p><strong>Nom :</strong> {{ $solution->name }}</p>
-                            <p><strong>Domaine :</strong> {{ $solution->domain }}</p>
-                            <p><strong>Status :</strong>
-                                <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {{ $solution->status === 'Actif' ? 'bg-green-500' : 'bg-red-500' }}">
-                                    {{ $solution->status }}
-                                </span>
-                            </p>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-        </section>
-    </main>
-
-    <!-- Help Tab -->
-    <div class="help-tab">
-        Besoin d'aide ?
+        <form action="{{ route('logout') }}" method="POST" class="mt-auto">
+            @csrf
+            <button type="submit" class="btn-primary w-full">Déconnexion</button>
+        </form>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 py-6">
-        <div class="container mx-auto px-6 text-center text-white">
-            <p>&copy; 2025 Quentix. Tous droits réservés.</p>
-        </div>
-    </footer>
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <h1 class="text-4xl font-bold text-white mb-6">Bienvenue, {{ Auth::user()->name }} 👋</h1>
+
+        <!-- Section Profil -->
+        <section id="profile" class="section">
+            <h2 class="text-2xl font-bold mb-3">👤 Mes Informations</h2>
+            <p><strong>Nom :</strong> {{ Auth::user()->name }}</p>
+            <p><strong>Email :</strong> {{ Auth::user()->email }}</p>
+            <p><strong>Date d'inscription :</strong> {{ Auth::user()->created_at->format('d/m/Y') }}</p>
+        </section>
+
+        <!-- Section Abonnement -->
+        <section id="subscription" class="section">
+            <h2 class="text-2xl font-bold mb-3">📜 Mon Abonnement</h2>
+            @if($subscription)
+                <div class="p-4 border border-gray-300 rounded-lg bg-gray-50">
+                    <p><strong>Type :</strong> {{ $subscription->plan_name }}</p>
+                    <p><strong>Prix :</strong> {{ $subscription->price }}€ / mois</p>
+                    <p><strong>Renouvellement :</strong> {{ $subscription->renewal_date->format('d/m/Y') }}</p>
+                </div>
+            @else
+                <p class="text-gray-500">Aucun abonnement actif.</p>
+                <a href="{{ route('subscriptions.index') }}" class="btn-primary mt-4 inline-block">Souscrire</a>
+            @endif
+        </section>
+
+        <!-- Section Solutions Déployées -->
+        <section id="solutions" class="section">
+            <h2 class="text-2xl font-bold mb-3">🚀 Mes Solutions Déployées</h2>
+            @if(isset($solutions) && $solutions->count())
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @foreach($solutions as $solution)
+                        <div class="p-4 border border-gray-300 rounded-lg bg-gray-50">
+                            <p><strong>Nom :</strong> {{ $solution->name }}</p>
+                            <p><strong>Domaine :</strong> {{ $solution->domain }}</p>
+                            <span class="status-badge {{ $solution->status === 'Actif' ? 'status-active' : 'status-inactive' }}">
+                                {{ $solution->status }}
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-500">Aucune solution déployée.</p>
+                <a href="{{ route('solutions.wordpress') }}" class="btn-primary mt-4 inline-block">Déployer une Solution</a>
+            @endif
+        </section>
+
+        <!-- Support -->
+        <section class="text-center" id='bottomFooter'>
+            <a href="/support" class="btn-primary">Besoin d'aide ? Contactez-nous</a>
+        </section>
+    </div>
 
 </body>
 </html>

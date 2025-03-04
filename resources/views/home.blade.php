@@ -28,7 +28,7 @@
             width: 100vw;
         }
         .logo {
-            height: 20px; /* Agrandissement léger du logo */
+            height: 25px; /* Agrandissement léger du logo */
         }
         #ctaButton {
             background-color: #9141e9; 
@@ -86,10 +86,10 @@
                         </form>
                     @else
                         <div class="space-x-4">
-                            <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-semibold text-white border border-white rounded-lg hover:bg-white hover:text-purple-700 transition">
+                            <a href="{{ route('login') }}" class="text-sm font-semibold text-white hover:text-blue-300 transition">
                                 Connexion
                             </a>
-                            <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-semibold text-white border border-white rounded-lg hover:bg-white hover:text-purple-700 transition">
+                            <a href="{{ route('register') }}" class="px-6 py-4 text-sm font-semibold text-white border border-white rounded-lg hover:bg-white hover:text-purple-700 transition">
                                 Inscription
                             </a>
                         </div>
