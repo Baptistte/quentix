@@ -13,8 +13,10 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #6B21A8, #EDE9FE); 
+            background: linear-gradient(to bottom, #6B21A8, #EDE9FE);
+            position: relative;
         }
+
         .container {
             max-width: 85%;
             margin-left: auto;

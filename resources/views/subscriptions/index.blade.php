@@ -137,9 +137,13 @@
                     <li>❌ Support premium</li>
                     <li>❌ Sauvegardes automatiques</li>
                 </ul>
-                <button class="mt-6 w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
-                    Choisir ce Plan
-                </button>
+                <form action="{{ route('subscribe') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="plan_id" value="1"> <!-- ID du plan Basique -->
+                    <button type="submit" class="mt-6 w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
+                        Choisir ce Plan
+                    </button>
+                </form>
             </div>
 
             <!-- Plan Pro -->
@@ -157,9 +161,13 @@
                     <li>✔️ Support Premium 24/7</li>
                     <li>✔️ Sauvegardes automatiques</li>
                 </ul>
-                <button class="mt-6 w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
-                    Choisir ce Plan
-                </button>
+                <form action="{{ route('subscribe') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="plan_id" value="2"> <!-- ID du plan Basique -->
+                    <button type="submit" class="mt-6 w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
+                        Choisir ce Plan
+                    </button>
+                </form>
             </div>
 
             <!-- Plan Entreprise -->
@@ -178,9 +186,13 @@
                     <li>✔️ Sauvegardes automatiques</li>
                     <li>✔️ Gestion multilingue</li>
                 </ul>
-                <button class="mt-6 w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
-                    Choisir ce Plan
-                </button>
+                <form action="{{ route('subscribe') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="plan_id" value="3"> <!-- ID du plan Basique -->
+                    <button type="submit" class="mt-6 w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
+                        Choisir ce Plan
+                    </button>
+                </form>
             </div>
         </div>
 

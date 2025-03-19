@@ -33,4 +33,10 @@ class Plan extends Model
     {
         return $this->hasMany(User::class, 'subscription_plan_id');
     }
+
+    public function purchases()
+    {
+        return $this->hasMany(PurchaseHistory::class, 'plan_id');
+    }
+
 }

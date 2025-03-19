@@ -95,7 +95,7 @@
                 <!-- Bouton de connexion -->
                 <button type="submit"
                     class="w-full bg-purple-700 text-white text-lg font-semibold py-3 rounded-md hover:bg-purple-800 transition">
-                    C'est partie →
+                    C'est parti →
                 </button>
             
                 <!-- Liens d'aide -->

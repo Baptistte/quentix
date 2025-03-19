@@ -122,6 +122,7 @@
         <a href="#profile">👤 Mon Profil</a>
         <a href="#solutions">🚀 Mes Solutions</a>
         <a href="#subscription">📜 Mon Abonnement</a>
+        <a href="{{ route('purchase.history') }}">🛒 Historique</a>
         <a href="/">🏠 Accueil</a>
 
         <form action="{{ route('logout') }}" method="POST" class="mt-auto">
@@ -142,14 +143,18 @@
             <p><strong>Date d'inscription :</strong> {{ Auth::user()->created_at->format('d/m/Y') }}</p>
         </section>
 
-        <!-- Section Abonnement -->
         <section id="subscription" class="section">
             <h2 class="text-2xl font-bold mb-3">📜 Mon Abonnement</h2>
             @if($subscription)
-                <div class="p-4 border border-gray-300 rounded-lg bg-gray-50">
-                    <p><strong>Type :</strong> {{ $subscription->plan_name }}</p>
-                    <p><strong>Prix :</strong> {{ $subscription->price }}€ / mois</p>
-                    <p><strong>Renouvellement :</strong> {{ $subscription->renewal_date->format('d/m/Y') }}</p>
+                <div class="p-3 border border-gray-300 rounded-lg bg-gray-50 flex items-center justify-between w-80">
+                    <div>
+                        <p class="text-lg font-semibold">{{ $subscription->name }}</p>
+                        <p class="text-gray-600">{{ $subscription->price }}€ / mois</p>
+                    </div>
+                    <!-- Bouton "?" pour afficher les infos -->
+                    <button onclick="showSubscriptionInfo()" class="text-purple-600 text-2xl font-bold bg-transparent border-none cursor-pointer">
+                        ?
+                    </button>
                 </div>
             @else
                 <p class="text-gray-500">Aucun abonnement actif.</p>
@@ -186,3 +191,35 @@
 
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showSubscriptionInfo() {
+        // Données dynamiques venant de Laravel
+        let features = @json(json_decode($subscription->features)); // Décode les features en JSON
+
+        // Convertir les features en liste HTML dynamique
+        let featureList = `
+            <ul style="text-align:left;">
+                <li>${features.sites_inclus} site(s) inclus</li>
+                <li>${features.hebergement_securise ? '✔️ Hébergement sécurisé' : '❌ Hébergement non sécurisé'}</li>
+                <li>${features.certificat_ssl_inclus ? '✔️ Certificat SSL inclus' : '❌ Pas de certificat SSL'}</li>
+                <li>${features.support_premium_24_7 ? '✔️ Support Premium 24/7' : '❌ Pas de support premium'}</li>
+                <li>${features.sauvegardes_automatiques ? '✔️ Sauvegardes automatiques' : '❌ Pas de sauvegardes automatiques'}</li>
+                <li>${features.gestion_multilingue ? '✔️ Gestion multilingue' : '❌ Pas de gestion multilingue'}</li>
+            </ul>
+        `;
+
+        // Afficher la pop-up avec les features dynamiques
+        Swal.fire({
+            title: "Détails de l'abonnement",
+            html: `
+                <p><strong>Type :</strong> {{ $subscription->name }}</p>
+                <p><strong>Prix :</strong> {{ $subscription->price }}€ / mois</p>
+                ${featureList}
+            `,
+            icon: "info",
+            confirmButtonText: "OK",
+            confirmButtonColor: "#6B21A8"
+        });
+    }
+</script>

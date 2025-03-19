@@ -148,17 +148,26 @@
                 </ul>
             </div>
 
-            <!-- Tarification -->
-            <div class="card">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">💰 Tarification</h2>
-                <div class="price-box">
-                    <p class="text-3xl font-bold text-gray-800">10€/mois</p>
-                    <p class="text-gray-600">Inclus :</p>
-                    <ul class="text-gray-700 space-y-2 mt-2">
-                        <li>🔒 Hébergement sécurisé</li>
-                        <li>🔐 Certificat SSL offert</li>
-                        <li>📞 Support technique 24/7</li>
-                    </ul>
+            <!-- Avis Client -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
+                <div class="flex items-center space-x-4 mb-4">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Client" class="w-12 h-12 rounded-full">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Alexandre Dupont</h3>
+                        <p class="text-sm text-gray-500">Entrepreneur, Paris</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 italic">
+                    “Une plateforme exceptionnelle ! Grâce à Quentix, j'ai pu créer mon site en quelques minutes avec un design professionnel et une performance optimale. Recommandé à 100% !”
+                </p>
+                <!-- Note étoiles -->
+                <div class="mt-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
+                    <span class="ml-2 text-gray-500 text-sm">5/5</span>
                 </div>
             </div>
 

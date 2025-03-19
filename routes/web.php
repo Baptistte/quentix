@@ -5,7 +5,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSpaceController;
-
+use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\SiteSolutionController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -32,5 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/connected_user_space',[UserSpaceController::class, 'index'])->name('user.space');    
+    Route::get('/connected_user_space',[UserSpaceController::class, 'index'])->name('user.space');   
+    Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe'); 
+
+    Route::get('/purchase-history', [PurchaseHistoryController::class, 'index'])->middleware('auth')->name('purchase.history');
 });
