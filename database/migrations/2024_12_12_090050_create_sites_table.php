@@ -12,13 +12,14 @@ class CreateSitesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('domain');
-            $table->unsignedBigInteger('statut_id');
-            $table->unsignedBigInteger('server_id');
+            $table->string('statut_id')->nullable();
+            $table->string('server_id')->nullable();
+            $table->string('container_name')->nullable();
+            $table->date('date_exp')->nullable();
+            $table->string('service')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('statut_id')->references('id')->on('statut_site');
-            $table->foreign('server_id')->references('id')->on('servers');
         });
     }
 

@@ -29,6 +29,7 @@ Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('su
 Route::middleware('auth')->group(function () {
     Route::get('/sites/create', [SiteController::class, 'create'])->name('sites.create');
     Route::get('/sites/index', [SiteController::class, 'index'])->name('sites.index');
+    Route::post('/sites/store', [SiteController::class, 'store'])->name('sites.store');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 

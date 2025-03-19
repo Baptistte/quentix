@@ -31,7 +31,7 @@ class UserSpaceController extends Controller
         return view('usermain', [
             'user' => $user,
             'subscription' => $subscription,
-            'sites' => $sites,
+            'solutions' => $sites,
         ]);
     }
 }

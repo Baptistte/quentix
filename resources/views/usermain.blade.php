@@ -120,7 +120,7 @@
             </a>
         </div>
         <a href="#profile">👤 Mon Profil</a>
-        <a href="#solutions">🚀 Mes Solutions</a>
+        <a href="{{ route('sites.index') }}">🚀 Mes Solutions</a>
         <a href="#subscription">📜 Mon Abonnement</a>
         <a href="{{ route('purchase.history') }}">🛒 Historique</a>
         <a href="/">🏠 Accueil</a>
@@ -164,22 +164,33 @@
 
         <!-- Section Solutions Déployées -->
         <section id="solutions" class="section">
-            <h2 class="text-2xl font-bold mb-3">🚀 Mes Solutions Déployées</h2>
+            <h2 class="text-2xl font-bold mb-6">🚀 Mes Solutions Déployées</h2>
+
             @if(isset($solutions) && $solutions->count())
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    @foreach($solutions as $solution)
-                        <div class="p-4 border border-gray-300 rounded-lg bg-gray-50">
-                            <p><strong>Nom :</strong> {{ $solution->name }}</p>
-                            <p><strong>Domaine :</strong> {{ $solution->domain }}</p>
-                            <span class="status-badge {{ $solution->status === 'Actif' ? 'status-active' : 'status-inactive' }}">
+                <div class="flex flex-wrap gap-2.5">
+                    @foreach($solutions->take(4) as $solution)
+                        <div class="w-[20%] p-5 border border-gray-300 rounded-xl bg-white shadow-md flex flex-col items-center justify-center text-center hover:shadow-lg transition">
+                            <h3 class="text-lg font-bold text-gray-800">{{ $solution->name }}</h3>
+                            <p class="text-sm text-gray-500">{{ $solution->domain }}</p>
+                            <span class="mt-2 px-3 py-1 text-sm font-semibold rounded-full 
+                                {{ $solution->status === 'Actif' ? 'bg-green-200 text-green-700' : 'bg-red-200 text-red-700' }}">
                                 {{ $solution->status }}
                             </span>
                         </div>
                     @endforeach
+
+                    <!-- Widget pour voir plus -->
+                    <div class="w-[20%] p-5 flex items-center justify-center border border-gray-300 rounded-xl bg-white shadow-md hover:shadow-lg transition cursor-pointer">
+                        <a href="{{ route('sites.index') }}" class="text-purple-600 text-4xl font-bold flex items-center justify-center">
+                            ➜
+                        </a>
+                    </div>
                 </div>
             @else
                 <p class="text-gray-500">Aucune solution déployée.</p>
-                <a href="{{ route('solutions.wordpress') }}" class="btn-primary mt-4 inline-block">Déployer une Solution</a>
+                <a href="{{ route('solutions.wordpress') }}" class="btn-primary mt-4 inline-block">
+                    Déployer une Solution
+                </a>
             @endif
         </section>
 

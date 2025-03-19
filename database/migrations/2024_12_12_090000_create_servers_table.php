@@ -12,9 +12,7 @@ class CreateServersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('guard_name');
-            $table->unsignedBigInteger('statut_id');
-            
-            $table->foreign('statut_id')->references('id')->on('statut_server');
+            $table->string('statut_id');            
         });
     }
 

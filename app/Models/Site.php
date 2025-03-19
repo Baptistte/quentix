@@ -10,7 +10,7 @@ class Site extends Model
     use HasFactory;
 
     // Définir les champs qui peuvent être remplis via des requêtes de type mass-assignment
-    protected $fillable = ['user_id', 'domain', 'status'];
+    protected $fillable = ['user_id', 'domain', 'statut_id', 'service', 'server_id'];
 
     // Relations
     public function user()
