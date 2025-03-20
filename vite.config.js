@@ -8,12 +8,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    // server: {
-    //     host: '0.0.0.0', // Écoute toutes les IPs
-    //     port: 5173, // Par défaut, changez si nécessaire
-    //     strictPort: true,
-    //     hmr: {
-    //         host: '192.168.10.22', // Remplacez par votre IP locale
-    //     }
-    // }
+       server: {
+           host: '0.0.0.0', // Écoute toutes les IPs
+           port: 5173, // Par défaut, changez si nécessaire
+           strictPort: true,
+           hmr: {
+               host: '0.0.0.0', // Remplacez par votre IP locale
+           }
+       }
 });
