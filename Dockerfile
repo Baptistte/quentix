@@ -16,7 +16,13 @@ WORKDIR /var/www/html
 # Copier les fichiers du projet (sauf node_modules et vendor si déjà exclus dans .dockerignore)
 COPY . /var/www/html
 RUN cp /var/www/html/.env.example /var/www/html/.env
-
+RUN chown www-data:www-data /var/www/html/.env && chmod 644 /var/www/html/.env 
+RUN echo "DB_CONNECTION=mysql" >> /var/www/html/.env && \
+    echo "DB_HOST=192.168.10.100" >> /var/www/html/.env && \
+    echo "DB_PORT=3306" >> /var/www/html/.env && \
+    echo "DB_DATABASE=Quentix_DB" >> /var/www/html/.env && \
+    echo "DB_USERNAME=laravel_user" >> /var/www/html/.env && \
+    echo "DB_PASSWORD=L@r@velPass123" >> /var/www/html/.env
 # Installer les extensions PHP nécessaires
 RUN docker-php-ext-install gd pdo pdo_mysql
 
