@@ -16,11 +16,7 @@ class DatabaseSeeder extends Seeder
      */
 
      public function run()
-     {
-         Role::create(['name' => 'admin']);
-         Role::create(['name' => 'user']);
-     
-         Permission::create(['name' => 'manage sites']);
-         Permission::create(['name' => 'view dashboard']);
-     }
+        {
+            $this->call(PlanSeeder::class);
+        }
 }

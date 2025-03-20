@@ -1,14 +1,51 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Models\Plan;
+use Illuminate\Support\Facades\DB;
 
 class PlanSeeder extends Seeder
 {
     public function run()
     {
-        Plan::create(['name' => 'Basic', 'price' => 10.00, 'duration_months' => 1, 'features' => 'Feature 1, Feature 2']);
-        Plan::create(['name' => 'Premium', 'price' => 30.00, 'duration_months' => 3, 'features' => 'Feature 1, Feature 2, Feature 3']);
+        DB::table('plans')->insert([
+            [
+                'name' => 'Plan Basique',
+                'price' => 10.00,
+                'features' => json_encode([
+                    "sites_inclus" => 1,
+                    "hebergement_securise" => true,
+                    "certificat_ssl_inclus" => true,
+                    "support_premium_24_7" => false,
+                    "sauvegardes_automatiques" => false,
+                    "gestion_multilingue" => false
+                ]),
+            ],
+            [
+                'name' => 'Plan Pro',
+                'price' => 30.00,
+                'features' => json_encode([
+                    "sites_inclus" => 10,
+                    "hebergement_securise" => true,
+                    "certificat_ssl_inclus" => true,
+                    "support_premium_24_7" => true,
+                    "sauvegardes_automatiques" => true,
+                    "gestion_multilingue" => false
+                ]),
+            ],
+            [
+                'name' => 'Plan Entreprise',
+                'price' => 100.00,
+                'features' => json_encode([
+                    "sites_inclus" => 100,
+                    "hebergement_securise" => true,
+                    "certificat_ssl_inclus" => true,
+                    "support_premium_24_7" => true,
+                    "sauvegardes_automatiques" => true,
+                    "gestion_multilingue" => true
+                ]),
+            ],
+        ]);
     }
 }
