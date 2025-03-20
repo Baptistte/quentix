@@ -22,12 +22,6 @@ services:
       DB_DATABASE: Quentix_DB
       DB_USERNAME: laravel_user
       DB_PASSWORD: L@r@velPass123
-    entrypoint: ["/bin/sh", "-c", "
-      php artisan migrate --force &&  # Effectue les migrations
-      npm run dev &&  # Démarre Vite en mode développement
-      php artisan serve --host=0.0.0.0 --port=8000  # Démarre Laravel en mode développement
-    "]
-
 networks:
   quentix-network:
     driver: bridge
