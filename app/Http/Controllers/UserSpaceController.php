@@ -27,7 +27,7 @@ class UserSpaceController extends Controller
 
         // Récupérer les sites associés à l'utilisateur
         $sites = Site::where('user_id', $user->id)->get();
-
+       
         return view('usermain', [
             'user' => $user,
             'subscription' => $subscription,

@@ -205,32 +205,49 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function showSubscriptionInfo() {
-        // Données dynamiques venant de Laravel
-        let features = @json(json_decode($subscription->features)); // Décode les features en JSON
+        @if(isset($subscription))
 
-        // Convertir les features en liste HTML dynamique
-        let featureList = `
-            <ul style="text-align:left;">
-                <li>${features.sites_inclus} site(s) inclus</li>
-                <li>${features.hebergement_securise ? '✔️ Hébergement sécurisé' : '❌ Hébergement non sécurisé'}</li>
-                <li>${features.certificat_ssl_inclus ? '✔️ Certificat SSL inclus' : '❌ Pas de certificat SSL'}</li>
-                <li>${features.support_premium_24_7 ? '✔️ Support Premium 24/7' : '❌ Pas de support premium'}</li>
-                <li>${features.sauvegardes_automatiques ? '✔️ Sauvegardes automatiques' : '❌ Pas de sauvegardes automatiques'}</li>
-                <li>${features.gestion_multilingue ? '✔️ Gestion multilingue' : '❌ Pas de gestion multilingue'}</li>
-            </ul>
-        `;
+            // Données dynamiques venant de Laravel
+            
+            let features = @json(json_decode($subscription->features ?? '{}')); // Ajout de null coalescing
 
-        // Afficher la pop-up avec les features dynamiques
-        Swal.fire({
-            title: "Détails de l'abonnement",
-            html: `
-                <p><strong>Type :</strong> {{ $subscription->name }}</p>
-                <p><strong>Prix :</strong> {{ $subscription->price }}€ / mois</p>
-                ${featureList}
-            `,
-            icon: "info",
-            confirmButtonText: "OK",
-            confirmButtonColor: "#6B21A8"
-        });
+            // Convertir les features en liste HTML dynamique
+            let featureList = `
+                <ul style="text-align:left;">
+                    <li>${features.sites_inclus} site(s) inclus</li>
+                    <li>${features.hebergement_securise ? '✔️ Hébergement sécurisé' : '❌ Hébergement non sécurisé'}</li>
+                    <li>${features.certificat_ssl_inclus ? '✔️ Certificat SSL inclus' : '❌ Pas de certificat SSL'}</li>
+                    <li>${features.support_premium_24_7 ? '✔️ Support Premium 24/7' : '❌ Pas de support premium'}</li>
+                    <li>${features.sauvegardes_automatiques ? '✔️ Sauvegardes automatiques' : '❌ Pas de sauvegardes automatiques'}</li>
+                    <li>${features.gestion_multilingue ? '✔️ Gestion multilingue' : '❌ Pas de gestion multilingue'}</li>
+                </ul>
+            `;
+
+            // Afficher la pop-up avec les features dynamiques
+            Swal.fire({
+                title: "Détails de l'abonnement",
+                html: `
+                    <p><strong>Type :</strong> {{ $subscription->name }}</p>
+                    <p><strong>Prix :</strong> {{ $subscription->price }}€ / mois</p>
+                    ${featureList}
+                `,
+                icon: "info",
+                confirmButtonText: "OK",
+                confirmButtonColor: "#6B21A8"
+            });
+        @else
+            // Cas où l'utilisateur n'a pas encore d'abonnement
+            Swal.fire({
+                title: "Vous n'avez pas encore d'abonnement",
+                text: "Souscrivez à un plan pour débloquer toutes les fonctionnalités !",
+                icon: "info",
+                confirmButtonText: "Voir les offres",
+                confirmButtonColor: "#6B21A8"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('subscriptions.index') }}";
+                }
+            });
+        @endif
     }
 </script>

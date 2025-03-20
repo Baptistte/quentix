@@ -103,14 +103,24 @@
             <div class="w-1/3 flex justify-end">
                 <nav class="space-x-6 flex items-center">
                     
-                        <div class="space-x-4">
-                            <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-semibold text-white  rounded-lg hover:bg-white hover:text-purple-700 transition">
-                                Connexion
-                            </a>
-                            <a href="/#quick-tutorial" class="px-6 py-4 text-sm font-semibold text-white bg-purple-700 border border-white rounded-lg hover:bg-white hover:text-purple-700 transition">
-                                Tutoriel →
-                            </a>
-                        </div>
+                    @auth
+                        <a href="/#quick-tutorial" class="px-6 py-4 text-sm font-semibold text-white bg-purple-700 border border-white rounded-lg hover:bg-white hover:text-purple-700 transition">
+                            Tutoriel →
+                        </a>
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="flex items-center text-white hover:text-red-500 transition">
+                                <span class="ml-2">Déconnexion</span>
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-semibold text-white  rounded-lg hover:bg-white hover:text-purple-700 transition">
+                            Connexion
+                        </a>
+                        <a href="/#quick-tutorial" class="px-6 py-4 text-sm font-semibold text-white bg-purple-700 border border-white rounded-lg hover:bg-white hover:text-purple-700 transition">
+                            Tutoriel →
+                        </a>
+                    @endauth
                 </nav>
             </div>
         </div>

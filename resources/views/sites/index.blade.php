@@ -146,9 +146,7 @@
                 <span class="text-purple-600">{{ $sites->count() }}</span> site(s) actif(s).
             </p>
         </div>
-        <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md">
-            Ajouter un site
-        </button>
+        
         </header>
 
 
@@ -198,7 +196,7 @@
 
         <!-- Widget vide pour ajouter un site -->
         <div class="bg-white p-6 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">
-            <a href="{{ route('sites.create') }}" class="text-4xl text-gray-400 hover:text-gray-600 transition">
+            <a href="{{ route('sites.create') }}" class="text-6xl text-gray-400 hover:text-gray-600 transition">
             +
             </a>
         </div>
