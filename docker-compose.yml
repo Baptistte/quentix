@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quentix-app
+    ports:
+      - "8000:8000"
+      - "5173:5173"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - quentix-network
+
+
+  vite:
+    image: node:16
+    container_name: quentix-vite
+    working_dir: /var/www/html
+    command: npm run dev
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "5173:5173"
+    depends_on:
+      - app
+    networks:
+      - quentix-network
+
+networks:
+  quentix-network:
+    driver: bridge
