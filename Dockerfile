@@ -16,7 +16,8 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # Installer Composer & NPM Vite (au build)
-
+RUN chmod -R 775 /var/www/html \
+    && chown -R www-data:www-data /var/www/html
 RUN npm install
 RUN npm install tailwindcss postcss autoprefixer --save-dev
 RUN npm install npm run build
