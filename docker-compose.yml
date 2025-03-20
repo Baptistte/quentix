@@ -23,6 +23,7 @@ services:
       DB_USERNAME: laravel_user
       DB_PASSWORD: L@r@velPass123
     entrypoint: ["/bin/sh", "-c", "
+      git config --global --add safe.directory /var/www/html &&
       chmod -R 775 /var/www/html &&
       chown -R www-data:www-data /var/www/html &&
       composer install --no-dev --optimize-autoloader &&
@@ -32,6 +33,7 @@ services:
       npm run build &&
       php-fpm
     "]
+
 
 networks:
   quentix-network:
