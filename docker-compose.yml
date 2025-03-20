@@ -13,21 +13,7 @@ services:
       - .:/var/www/html
     networks:
       - quentix-network
-
-
-  vite:
-    image: node:16
-    container_name: quentix-vite
-    working_dir: /var/www/html
-    command: npm run dev
-    volumes:
-      - .:/var/www/html
-    ports:
-      - "5173:5173"
-    depends_on:
-      - app
-    networks:
-      - quentix-network
+    command: ["/bin/bash", "-c", "npm run dev & php artisan serve --host=192.168.10.22 --port=8000"]
 
 networks:
   quentix-network:

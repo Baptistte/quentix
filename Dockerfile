@@ -24,27 +24,25 @@ RUN npm install tailwindcss postcss autoprefixer --save-dev
 # Copier l'entrypoint et donner les droits d'exécution
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-CMD cat > vite.config.js <<EOF
- import { defineConfig } from 'vite';
- import laravel from 'laravel-vite-plugin';
-
- export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
-        }),
-    ],
-    server: {
-        host: '0.0.0.0', // Écoute toutes les IPs
-        port: 5173, // Par défaut, changez si nécessaire
-        strictPort: true,
-        hmr: {
-            host: '192.168.10.22', // Remplacez par votre IP locale
-        }
-    }
-  });
- EOF
+RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
+    echo "import laravel from 'laravel-vite-plugin';" >> vite.config.js && \
+    echo "" >> vite.config.js && \
+    echo "export default defineConfig({" >> vite.config.js && \
+    echo "    plugins: [" >> vite.config.js && \
+    echo "        laravel({" >> vite.config.js && \
+    echo "            input: ['resources/css/app.css', 'resources/js/app.js']," >> vite.config.js && \
+    echo "            refresh: true," >> vite.config.js && \
+    echo "        })," >> vite.config.js && \
+    echo "    ]," >> vite.config.js && \
+    echo "    server: {" >> vite.config.js && \
+    echo "        host: '0.0.0.0'," >> vite.config.js && \
+    echo "        port: 5173," >> vite.config.js && \
+    echo "        strictPort: true," >> vite.config.js && \
+    echo "        hmr: {" >> vite.config.js && \
+    echo "            host: '192.168.10.22'," >> vite.config.js && \
+    echo "        }" >> vite.config.js && \
+    echo "    }" >> vite.config.js && \
+    echo "});" >> vite.config.js
 # Définir l'entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
