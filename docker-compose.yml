@@ -7,11 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: quentix-app
     ports:
-      - "8000:8000"
-      - "5173:5173"
+      - "8000:8000"  # Port pour Laravel
+      - "5173:5173"  # Port pour Vite
     volumes:
       - .:/var/www/html
-      - /var/www/html/vendor # Ne pas écraser `vendor/`
+      - /var/www/html/vendor  # Ne pas écraser `vendor/`
       - /var/www/html/node_modules # Ne pas monter node_modules
     networks:
       - quentix-network
@@ -23,17 +23,10 @@ services:
       DB_USERNAME: laravel_user
       DB_PASSWORD: L@r@velPass123
     entrypoint: ["/bin/sh", "-c", "
-      git config --global --add safe.directory /var/www/html &&
-      chmod -R 775 /var/www/html &&
-      chown -R www-data:www-data /var/www/html &&
-      composer install --no-dev --optimize-autoloader &&
-      php artisan key:generate &&
-      php artisan migrate --force &&
-      npm install &&
-      npm run build &&
-      php-fpm
+      php artisan migrate --force &&  # Effectue les migrations
+      npm run dev &&  # Démarre Vite en mode développement
+      php artisan serve --host=0.0.0.0 --port=8000  # Démarre Laravel en mode développement
     "]
-
 
 networks:
   quentix-network:
