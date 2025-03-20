@@ -16,8 +16,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # Installer Composer & NPM Vite (au build)
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev --optimize-autoloader
+
 RUN npm install
 RUN npm install tailwindcss postcss autoprefixer --save-dev
 RUN npm install npm run build
@@ -33,6 +32,8 @@ RUN echo "DB_CONNECTION=mysql" >> .env && \
 RUN docker-php-ext-install gd pdo pdo_mysql
 RUN php artisan migrate
 RUN php artisan key:generate
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install --no-dev --optimize-autoloader
 
 # Copier l'entrypoint et donner les droits d'exécution
 RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
