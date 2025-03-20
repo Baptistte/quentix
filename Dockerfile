@@ -21,6 +21,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
+
 COPY .env.example .env
 RUN echo "DB_CONNECTION=mysql" >> .env && \
     echo "DB_HOST=192.168.10.100" >> .env && \
@@ -28,13 +29,6 @@ RUN echo "DB_CONNECTION=mysql" >> .env && \
     echo "DB_DATABASE=Quentix_DB" >> .env && \
     echo "DB_USERNAME=laravel_user" >> .env && \
     echo "DB_PASSWORD=L@r@velPass123" >> .env
-# Copier les fichiers du projet (sauf node_modules et vendor si déjà exclus dans .dockerignore)
-COPY . /var/www/html
-
-# Installer les dépendances PHP
-RUN composer install --no-dev --optimize-autoloader
-
-
 
 # Copier l'entrypoint Laravel + Vite
 RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
@@ -57,8 +51,10 @@ RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
     echo "    }" >> vite.config.js && \
     echo "});" >> vite.config.js
 
-# Définir les permissions
+# Copier les fichiers du projet (sauf node_modules et vendor si déjà exclus dans .dockerignore)
+COPY . /var/www/html
 RUN chmod -R 775 /var/www/html && chown -R www-data:www-data /var/www/html
-
+# Installer les dépendances PHP
+RUN composer install --no-dev --optimize-autoloader
 # Définir l’entrypoint pour s’assurer que Laravel démarre proprement
 ENTRYPOINT ["sh", "-c", "php artisan key:generate && php-fpm"]
