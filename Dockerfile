@@ -2,7 +2,9 @@
 FROM php:8.3-fpm
 
 # Mise à jour des paquets et installation des dépendances nécessaires
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+
+RUN apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
@@ -10,11 +12,15 @@ RUN apt-get update && apt-get install -y \
     zip \
     git \
     npm \
-    libmysqlclient-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql xml \
-    && npm install -g vite \
-    && apt-get clean
+    libmysqlclient-dev
+    # Configuration de PHP GD extension
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd pdo pdo_mysql xml
+
+# Installer vite globalement
+RUN npm install -g vite
+
+RUN apt-get clean
 
 # Installation de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
