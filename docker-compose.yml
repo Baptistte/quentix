@@ -18,3 +18,4 @@ services:
 networks:
   quentix-network:
     driver: bridge
+
