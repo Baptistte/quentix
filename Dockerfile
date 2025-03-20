@@ -46,7 +46,7 @@ RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
     echo "        port: 5173," >> vite.config.js && \
     echo "        strictPort: true," >> vite.config.js && \
     echo "        hmr: {" >> vite.config.js && \
-    echo "            host: '192.168.10.22'," >> vite.config.js && \
+    echo "            host: '0.0.0.0'," >> vite.config.js && \
     echo "        }" >> vite.config.js && \
     echo "    }" >> vite.config.js && \
     echo "});" >> vite.config.js
