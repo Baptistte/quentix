@@ -11,11 +11,29 @@ services:
       - "5173:5173"
     volumes:
       - .:/var/www/html
+      - /var/www/html/vendor # Ne pas écraser `vendor/`
+      - /var/www/html/node_modules # Ne pas monter node_modules
     networks:
       - quentix-network
-    command: ["/bin/bash", "-c", "npm run dev & php artisan serve --host=192.168.10.22 --port=8000"]
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: 192.168.10.100
+      DB_PORT: 3306
+      DB_DATABASE: Quentix_DB
+      DB_USERNAME: laravel_user
+      DB_PASSWORD: L@r@velPass123
+    entrypoint: ["/bin/sh", "-c", "
+      chmod -R 775 /var/www/html &&
+      chown -R www-data:www-data /var/www/html &&
+      composer install --no-dev --optimize-autoloader &&
+      ./wait-for-db.sh &&
+      php artisan key:generate &&
+      php artisan migrate --force &&
+      npm install &&
+      npm run build &&
+      php-fpm
+    "]
 
 networks:
   quentix-network:
     driver: bridge
-
