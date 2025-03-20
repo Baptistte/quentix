@@ -9,6 +9,18 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libpng-dev \
     && apt-get clean
+    
+# Installer les extensions PHP nécessaires
+RUN docker-php-ext-install gd pdo pdo_mysql
+
+# Installer Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Installer les dépendances PHP
+RUN composer install --no-dev --optimize-autoloader
+
+# Installer les dépendances NPM
+RUN npm install && npm install tailwindcss postcss autoprefixer --save-dev && npm run build
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
@@ -23,20 +35,9 @@ RUN echo "DB_CONNECTION=mysql" >> /var/www/html/.env && \
     echo "DB_DATABASE=Quentix_DB" >> /var/www/html/.env && \
     echo "DB_USERNAME=laravel_user" >> /var/www/html/.env && \
     echo "DB_PASSWORD=L@r@velPass123" >> /var/www/html/.env
-# Installer les extensions PHP nécessaires
-RUN docker-php-ext-install gd pdo pdo_mysql
 
 # Définir les permissions
 RUN chmod -R 775 /var/www/html && chown -R www-data:www-data /var/www/html
-
-# Installer Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Installer les dépendances PHP
-RUN composer install --no-dev --optimize-autoloader
-
-# Installer les dépendances NPM
-RUN npm install && npm install tailwindcss postcss autoprefixer --save-dev && npm run build
 
 # Copier l'entrypoint Laravel + Vite
 RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
