@@ -1,9 +1,17 @@
+
 #!/bin/sh
+
+npm install tailwindcss postcss autoprefixer --save-dev
 
 # Copier .env.example si .env n'existe pas
 if [ ! -f /var/www/html/.env ]; then
     cp /var/www/html/.env.example /var/www/html/.env
 fi
+
+# Vérifier si les variables existent dans le fichier .env, sinon les ajouter
+grep -q "^APP_URL=" /var/www/html/.env || echo "APP_URL=http://localhost" >> /var/www/html/.env
+grep -q "^VITE_PORT=" /var/www/html/.env || echo "VITE_PORT=5173" >> /var/www/html/.env
+grep -q "^VITE_HOST=" /var/www/html/.env || echo "VITE_HOST=localhost" >> /var/www/html/.env
 
 # Forcer les variables MySQL
 sed -i 's|DB_CONNECTION=.*|DB_CONNECTION=mysql|' /var/www/html/.env
