@@ -35,8 +35,6 @@ RUN php artisan migrate
 RUN php artisan key:generate
 
 # Copier l'entrypoint et donner les droits d'exécution
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
     echo "import laravel from 'laravel-vite-plugin';" >> vite.config.js && \
     echo "" >> vite.config.js && \
@@ -60,5 +58,4 @@ RUN echo "import { defineConfig } from 'vite';" > vite.config.js && \
 
 
 # Définir l'entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
