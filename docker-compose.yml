@@ -26,7 +26,6 @@ services:
       chmod -R 775 /var/www/html &&
       chown -R www-data:www-data /var/www/html &&
       composer install --no-dev --optimize-autoloader &&
-      ./wait-for-db.sh &&
       php artisan key:generate &&
       php artisan migrate --force &&
       npm install &&
