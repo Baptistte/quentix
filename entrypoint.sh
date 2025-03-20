@@ -1,38 +1,34 @@
 #!/bin/bash
+set -e  # Arrête le script en cas d'erreur
 
-# Cloner le dépôt GitHub
-git clone https://github.com/Baptistte/quentix
-cd quentix
+echo "🚀 Démarrage du conteneur Laravel..."
 
-# Installer Composer et PHP
-apt update && apt install -y composer php8.3-xml php8.3-mysql
+# Vérifier si le port 5173 est occupé et le libérer
+PORT=5173
+if lsof -i :$PORT; then
+    echo "⚠️ Port $PORT occupé. Libération..."
+    fuser -k $PORT/tcp
+fi
 
-# Mettre à jour et installer les dépendances PHP
-composer update
-composer install -y
+# Vérifier si .env existe, sinon le créer
+if [ ! -f .env ]; then
+    echo "⚙️ Création du fichier .env"
+    cp .env.example .env
+fi
 
-# Configurer l'environnement
-cp .env.example .env
-php artisan key:generate
+# Générer la clé Laravel si nécessaire
+if ! grep -q "APP_KEY=" .env; then
+    echo "🔑 Génération de la clé d'application"
+    php artisan key:generate
+fi
 
-# Installer Node.js et Vite
-apt install -y npm
-npm install -g vite -y
-npm install tailwindcss postcss autoprefixer --save-dev -y
+# Appliquer les migrations si nécessaire
+echo "📦 Vérification des migrations"
+php artisan migrate --force
 
-# Modifier les variables d'environnement
-echo "DB_CONNECTION=mysql" >> .env
-echo "DB_HOST=192.168.10.100" >> .env
-echo "DB_PORT=3306" >> .env
-echo "DB_DATABASE=root" >> .env
-echo "DB_USERNAME=quentix_DB" >> .env
-echo "DB_PASSWORD=" >> .env
-
-# Appliquer les migrations
-php artisan migrate
-
-# Modifier le fichier vite.config.js
-cat > vite.config.js <<EOF
+if [ ! -f /var/www/html/vite.config.js ]; then
+  echo "Création de vite.config.js..."
+  cat > /var/www/html/vite.config.js <<EOF
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
@@ -53,11 +49,10 @@ export default defineConfig({
     }
 });
 EOF
-
-npm install -y
-npm install vite --save-dev -y
-
-# Lancer le serveur Vite
+fi
+# Vérifier et lancer Vite si nécessaire
+echo "🚀 Démarrage de Vite..."
 npm run dev &
 
-
+# Lancer PHP-FPM
+exec "$@"
