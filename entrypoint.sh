@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 npm install tailwindcss postcss autoprefixer --save-dev
