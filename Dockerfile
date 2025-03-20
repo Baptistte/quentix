@@ -15,6 +15,7 @@ WORKDIR /var/www/html
 
 # Copier les fichiers du projet (sauf node_modules et vendor si déjà exclus dans .dockerignore)
 COPY . /var/www/html
+RUN cp /var/www/html/.env.example /var/www/html/.env
 
 # Installer les extensions PHP nécessaires
 RUN docker-php-ext-install gd pdo pdo_mysql
