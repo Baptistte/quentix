@@ -158,26 +158,47 @@
                 </ul>
             </div>
 
-            <!-- Avis Client -->
-            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
-                <div class="flex items-center space-x-4 mb-4">
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Client" class="w-12 h-12 rounded-full">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800">Alexandre Dupont</h3>
-                        <p class="text-sm text-gray-500">Entrepreneur, Paris</p>
+            <div x-data="{ 
+                testimonials: [
+                    { name: 'Alexandre Dupont', city: 'Paris', role: 'Entrepreneur', review: '“Une plateforme exceptionnelle ! Grâce à Quentix, j\'ai pu créer mon site en quelques minutes avec un design professionnel et une performance optimale. Recommandé à 100% !”', img: 'https://randomuser.me/api/portraits/men/45.jpg', rating: 5 },
+                    { name: 'Sophie Martin', city: 'Lyon', role: 'Freelance', review: '“Simple, rapide et efficace. J\'ai pu lancer mon site professionnel en moins de 30 minutes. Un vrai game-changer !”', img: 'https://randomuser.me/api/portraits/women/65.jpg', rating: 5 },
+                    { name: 'Jean-Baptiste Leroy', city: 'Bordeaux', role: 'CEO Start-Up', review: '“L\'outil idéal pour les entrepreneurs. L\'hébergement est ultra rapide et la gestion des domaines simplifiée.”', img: 'https://randomuser.me/api/portraits/men/32.jpg', rating: 5 },
+                    { name: 'Marie Dubois', city: 'Marseille', role: 'Designer Web', review: '“Des templates magnifiques et personnalisables à souhait ! Je recommande vivement.”', img: 'https://randomuser.me/api/portraits/women/45.jpg', rating: 5 }
+                ], 
+                currentTestimonial: 0,
+                next() {
+                    this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length;
+                },
+                prev() {
+                    this.currentTestimonial = (this.currentTestimonial - 1 + this.testimonials.length) % this.testimonials.length;
+                },
+                autoSlide() {
+                    setInterval(() => { this.next(); }, 5000);
+                }
+            }" 
+            x-init="autoSlide()"
+            class="relative bg-white p-6 rounded-xl shadow-lg border border-gray-200 w-full mx-auto transition duration-300 ease-in-out min-h-[250px] flex flex-col justify-between">
+                
+                <!-- Avis -->
+                <div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <img :src="testimonials[currentTestimonial].img" alt="Client" class="w-12 h-12 rounded-full">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800" x-text="testimonials[currentTestimonial].name"></h3>
+                            <p class="text-sm text-gray-500" x-text="testimonials[currentTestimonial].role + ', ' + testimonials[currentTestimonial].city"></p>
+                        </div>
                     </div>
+                    <p class="text-gray-600 italic mb-6" x-text="testimonials[currentTestimonial].review"></p>
                 </div>
-                <p class="text-gray-600 italic">
-                    “Une plateforme exceptionnelle ! Grâce à Quentix, j'ai pu créer mon site en quelques minutes avec un design professionnel et une performance optimale. Recommandé à 100% !”
-                </p>
-                <!-- Note étoiles -->
-                <div class="mt-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/></svg>
-                    <span class="ml-2 text-gray-500 text-sm">5/5</span>
+            
+                <!-- Note étoiles toujours en bas -->
+                <div class="flex items-center">
+                    <template x-for="i in testimonials[currentTestimonial].rating">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 15.27L15.18 18l-1.64-5.03L18 9.24l-5.19-.45L10 4l-2.81 4.79L2 9.24l4.46 3.73L4.82 18z"/>
+                        </svg>
+                    </template>
+                    <span class="ml-2 text-gray-500 text-sm" x-text="testimonials[currentTestimonial].rating + '/5'"></span>
                 </div>
             </div>
 
@@ -200,3 +221,5 @@
 
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
