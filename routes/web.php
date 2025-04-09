@@ -8,6 +8,7 @@ use App\Http\Controllers\UserSpaceController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\SiteSolutionController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\JenkinsController;
 
 // Page d'accueil accessible à tous
 Route::get('/', function () {
@@ -25,6 +26,7 @@ Route::get('/wordpress_presentation', [SiteSolutionController::class, 'wordpress
 
 Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
 
+
 // Routes protégées par 'auth'
 Route::middleware('auth')->group(function () {
     Route::get('/sites/create', [SiteController::class, 'create'])->name('sites.create');
@@ -37,4 +39,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe'); 
 
     Route::get('/purchase-history', [PurchaseHistoryController::class, 'index'])->middleware('auth')->name('purchase.history');
+    Route::post('/jenkins/trigger', [JenkinsController::class, 'triggerJob'])->name('jenkins.trigger');
 });

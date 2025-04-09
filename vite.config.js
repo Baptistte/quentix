@@ -13,7 +13,7 @@ export default defineConfig({
            port: 5173, // Par défaut, changez si nécessaire
            strictPort: true,
            hmr: {
-               host: '192.168.10.22', // Remplacez par votre IP locale
+               host: '127.0.0.1', // Remplacez par votre IP locale
            }
        }
 });
