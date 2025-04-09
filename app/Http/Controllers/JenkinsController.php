@@ -9,25 +9,22 @@ class JenkinsController extends Controller
 {
     public function triggerJob(Request $request)
     {
-
         $userID = $request->input('UserID');
         $serviceID = $request->input('ServiceID');
         $nomConteneur = $request->input('NomConteneur');
 
-        // URL Jenkins
-        $jenkinsUrl = "http://192.168.10.21:8080/job/pipeline-test/buildWithParameters";
+        // Récupérer les données depuis le .env
+        $jenkinsUrl   = env('JENKINS_URL');
+        $username     = env('JENKINS_USERNAME');
+        $apiToken     = env('JENKINS_API_TOKEN');
 
-        // Authentification de base (⚠️ à sécuriser dans le .env)
-        $username = "quentix";
-        $apiToken = "11a5f6e8151b599b7cc3a0c7dc70b7e66c";
-
-        // Requête HTTP vers Jenkins (bypass CORS car backend)
-        $response = Http::asForm() // <-- ceci est crucial !
+        // Requête HTTP vers Jenkins en utilisant les données du .env
+        $response = Http::asForm() // Nécessaire pour envoyer des données en x-www-form-urlencoded
             ->withBasicAuth($username, $apiToken)
             ->post($jenkinsUrl, [
-                'UserID' => $userID,
-                'ServiceID' => $serviceID,
-                'NomConteneur' => $nomConteneur,
+                'UserID'      => $userID,
+                'ServiceID'   => $serviceID,
+                'NomConteneur'=> $nomConteneur,
             ]);
 
         if ($response->successful()) {
@@ -35,7 +32,7 @@ class JenkinsController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'status' => $response->status(),
+                'status'  => $response->status(),
                 'message' => 'Erreur Jenkins',
                 'details' => $response->body()
             ], $response->status());
