@@ -5,6 +5,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tableau de Bord - Quentix</title>
+  <link rel="icon" type="image/svg+xml" href="{{ asset('images/logoQuentixRoueSeulement.svg') }}">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <style>
     /* Background global */
@@ -145,7 +146,7 @@
     <!-- Logo centré ou à gauche, comme souhaité -->
     <div class="logo-container">
       <a href="/" class="flex items-center">
-        <img src="{{ asset('images/logoQuentixsansRouNoir.svg') }}" alt="Quentix Logo">
+        <img src="{{ asset('images/logoQuentixSansRoueBlanc.svg') }}" alt="Quentix Logo">
       </a>
     </div>
     <!-- Espace vide à droite (ou éventuellement y ajouter d'autres éléments) -->
