@@ -139,9 +139,11 @@
     <a href="{{ route('subscriptions.index') }}" class="hover:text-blue-300 transition">Abonnement</a>
     @auth
       <a href="{{ route('user.space') }}" class="hover:text-blue-300 transition">Espace Utilisateur</a>
-      <form action="{{ route('logout') }}" method="POST" class="py-2">
+      <form action="{{ route('logout') }}" method="POST" class="inline">
         @csrf
-        <button type="submit" class="hover:text-red-500 transition text-white text-xl">Déconnexion</button>
+        <button type="submit" class="flex items-center text-white hover:text-red-500 transition">
+          <span class="ml-2">Déconnexion</span>
+        </button>
       </form>
     @else
       <a href="{{ route('login') }}" class="text-xl font-semibold text-white hover:text-blue-300 transition">Connexion</a>
