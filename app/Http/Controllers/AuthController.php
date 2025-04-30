@@ -53,6 +53,7 @@ class AuthController extends Controller
             'name' => $name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'credits' => 500, // Add this line to set initial credits
         ]);
         return redirect('/login')->with('success', 'Inscription réussie. Vous pouvez maintenant vous connecter.');
         
