@@ -7,6 +7,7 @@
   <title>Tableau de Bord - Quentix</title>
   <link rel="icon" type="image/svg+xml" href="{{ asset('images/logoQuentixRoueSeulement.svg') }}">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> {/* Include SweetAlert2 */}
   <style>
     html, body {
       margin: 0;
@@ -73,6 +74,18 @@
      .sidebar .logo-sidebar-container img {
          height: 25px; /* Match topbar logo height */
      }
+     .sidebar .credits-display { /* Style for credits */
+        text-align: center;
+        margin-bottom: 15px; /* Spacing below credits */
+        padding: 8px;
+        border-radius: 6px;
+        background-color: #f3e8ff; /* Light purple bg */
+        border: 1px solid #d8b4fe; /* Lighter purple border */
+     }
+     .sidebar .credits-display span {
+         font-weight: 600;
+         color: #581c87; /* Darker purple text */
+     }
     .sidebar a {
       text-decoration: none; color: black; font-size: 18px;
       font-weight: 500; padding: 12px 0; transition: 0.3s ease-in-out;
@@ -99,25 +112,22 @@
     .btn-primary:hover { background: #5A1A91; }
 
     @media (max-width: 768px) {
-      /* Show topbar and burger on mobile */
       #topbar { display: flex; }
       #burgerMenu { display: block; }
 
-      /* Adjust sidebar for mobile */
       .sidebar {
-        top: 70px; /* Position below mobile topbar */
-        transform: translateX(-100%); /* Hide off-screen */
-        height: calc(100vh - 70px); /* Adjust height */
-        bottom: auto; /* Override bottom: 0 */
+        top: 70px;
+        transform: translateX(-100%);
+        height: calc(100vh - 70px);
+        bottom: auto;
       }
       .sidebar.active { transform: translateX(0); }
-      .sidebar .logo-sidebar-container { display: none; } /* Hide sidebar logo on mobile */
+      .sidebar .logo-sidebar-container { display: none; }
 
 
-      /* Adjust main content for mobile */
       .main-content {
         margin-left: 0;
-        padding-top: 110px; /* Keep space below mobile topbar (70px + 40px padding) */
+        padding-top: 110px;
       }
     }
   </style>
@@ -142,6 +152,9 @@
             <img src="{{ asset('images/logoQuentixsansRouNoir.svg') }}" alt="Quentix Logo">
          </a>
     </div>
+     <div class="credits-display">
+        <span>Crédits : {{ Auth::user()->credits ?? 0 }} ✨</span>
+    </div>
     <a href="{{ route('user.space') }}">👤 Mon Profil</a>
     <a href="{{ route('sites.index') }}">🚀 Mes Solutions</a>
     <a href="{{ route('user.space') }}">📜 Mon Abonnement</a>
@@ -158,9 +171,9 @@
     <div class="bg-card max-w-5xl w-full mx-auto flex flex-col md:flex-row gap-12">
       <div class="w-full md:w-1/2">
         <h1 class="text-3xl font-bold mb-6">🚀 Lancez votre site en quelques clics</h1>
-        <p class="text-gray-600 mb-6">Complétez les informations ci-dessous pour générer votre site.</p>
+        <p class="text-gray-600 mb-6">Complétez les informations ci-dessous pour générer votre site. (Coût: 500 crédits)</p>
 
-        <form action="{{ route('sites.store') }}" method="POST" class="space-y-6" onsubmit="lancerJob(event)">
+        <form id="siteCreationForm" action="{{ route('sites.store') }}" method="POST" class="space-y-6" onsubmit="handleSiteCreation(event)">
           @csrf
           <input type="hidden" id="userID" value="{{ Auth::user()->id }}">
           <input type="hidden" id="nomConteneur" name="nomConteneur">
@@ -189,7 +202,7 @@
           </div>
 
           <button type="submit" class="w-full bg-purple-600 text-white font-semibold py-3 rounded-lg hover:bg-purple-700 transition">
-            🌍 Créer mon site
+            🌍 Créer mon site (500 Crédits)
           </button>
         </form>
       </div>
@@ -213,23 +226,83 @@
   </div>
 
   <script>
-    function lancerJob(event) {
-      event.preventDefault();
+    // Pass user credits from PHP to JavaScript
+    const userCredits = {{ Auth::user()->credits ?? 0 }};
+    const siteCreationCost = 500;
+    const siteCreationForm = document.getElementById('siteCreationForm');
+
+    function handleSiteCreation(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const siteNameInput = document.getElementById("site_name");
+        const domainInput = document.getElementById("domain");
+
+        // Basic validation
+        if (!siteNameInput.value.trim() || !domainInput.value.trim()) {
+             Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Veuillez remplir tous les champs requis (Nom du site et URL).',
+                confirmButtonColor: '#6B21A8',
+             });
+             return; // Stop processing
+        }
+
+
+        // Check credits
+        if (userCredits < siteCreationCost) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Crédits insuffisants',
+                html: `Vous avez besoin de <strong>${siteCreationCost} crédits</strong> pour créer un site, mais vous n'en avez que ${userCredits}.<br><br>Veuillez recharger votre compte.`, // Add link to recharge page if you have one
+                confirmButtonText: 'Compris',
+                confirmButtonColor: '#6B21A8',
+            });
+            return; // Stop processing
+        }
+
+        // Confirmation popup
+        Swal.fire({
+            title: 'Confirmer la création',
+            html: `Cela déduira <strong>${siteCreationCost} crédits</strong> de votre compte.<br>Êtes-vous sûr de vouloir continuer ?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#6B21A8',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui, créer le site !',
+            cancelButtonText: 'Annuler'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If confirmed, proceed with the original Jenkins trigger logic and form submission
+                lancerJobAndSubmit();
+            }
+        });
+    }
+
+    function lancerJobAndSubmit() {
+      // This function now only contains the fetch logic and submission
+      // It's called only after credit check and confirmation pass
 
       const userID = document.getElementById("userID").value;
       const serviceID = document.getElementById("service").value;
       const nomConteneur = document.getElementById("nomConteneur").value;
 
-      if (!nomConteneur) {
-        alert("❌ Veuillez entrer un nom de site.");
-        return;
-      }
+      // Show a loading indicator while processing
+      Swal.fire({
+          title: 'Création en cours...',
+          text: 'Veuillez patienter pendant que nous préparons votre site.',
+          allowOutsideClick: false,
+          didOpen: () => {
+              Swal.showLoading();
+          },
+          confirmButtonColor: '#6B21A8',
+      });
 
       fetch("{{ route('jenkins.trigger') }}", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-TOKEN": document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         body: JSON.stringify({
           UserID: userID,
@@ -237,32 +310,54 @@
           NomConteneur: nomConteneur
         })
       })
-      .then(response => response.json())
+      .then(response => {
+         if (!response.ok) {
+            // Handle HTTP errors (like 500, 404 etc.)
+             throw new Error(`Erreur serveur: ${response.statusText}`);
+         }
+         return response.json();
+      })
       .then(data => {
+        Swal.close(); // Close loading indicator
         if (data.success) {
-          alert("🚀 Jenkins lancé avec succès !");
-          event.target.submit();
+           Swal.fire({
+              icon: 'success',
+              title: 'Site en préparation !',
+              text: 'Votre demande a été envoyée avec succès. La création peut prendre quelques instants.',
+              confirmButtonColor: '#6B21A8',
+           }).then(() => {
+               siteCreationForm.submit(); // Submit the original form to save site data
+           });
         } else {
-          alert("❌ Échec Jenkins : " + data.message);
+          Swal.fire({
+              icon: 'error',
+              title: 'Échec de la demande',
+              text: data.message || "Une erreur s'est produite lors du lancement de la création.",
+              confirmButtonColor: '#6B21A8',
+          });
         }
       })
       .catch(error => {
-        alert("❌ Erreur technique : " + error);
+        Swal.close(); // Close loading indicator
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur Technique',
+            text: error.message || "Une erreur inattendue s'est produite. Veuillez réessayer.",
+            confirmButtonColor: '#6B21A8',
+        });
       });
     }
 
     const burgerMenu = document.getElementById('burgerMenu');
     const sidebar = document.getElementById('sidebar');
-    const mainContent = document.querySelector('.main-content'); // Select main content
+    const mainContent = document.querySelector('.main-content');
 
     if (burgerMenu && sidebar) {
         burgerMenu.addEventListener('click', () => {
             sidebar.classList.toggle('active');
         });
 
-        // Optional: Close sidebar when clicking outside on mobile
          mainContent.addEventListener('click', (event) => {
-            // Check if sidebar is active (mobile view) and click is outside sidebar/burger
              if (window.innerWidth <= 768 && sidebar.classList.contains('active') && !sidebar.contains(event.target) && !burgerMenu.contains(event.target)) {
                 sidebar.classList.remove('active');
             }

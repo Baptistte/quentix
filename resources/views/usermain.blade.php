@@ -56,33 +56,42 @@
         transition: transform 0.3s ease-in-out;
         z-index: 999;
     }
+    .sidebar .sidebar-logo-container { /* Changed class name */
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px; /* Adjusted margin */
+    }
+     .sidebar .sidebar-logo-container img {
+         height: 25px;
+     }
+     .sidebar .credits-display { /* Style for credits */
+        text-align: center;
+        margin-bottom: 15px; /* Spacing below credits */
+        padding: 8px;
+        border-radius: 6px;
+        background-color: #f3e8ff; /* Light purple bg */
+        border: 1px solid #d8b4fe; /* Lighter purple border */
+     }
+     .sidebar .credits-display span {
+         font-weight: 600;
+         color: #581c87; /* Darker purple text */
+     }
     .sidebar a {
         text-decoration: none;
         color: black;
         font-size: 18px;
         font-weight: 500;
-        padding: 12px 0;
+        padding: 10px 0; /* Adjusted padding */
         transition: transform 0.3s ease-in-out, color 0.2s;
     }
     .sidebar a:hover {
         transform: translateX(5px);
         color: #6B21A8;
     }
-    .sidebar .logo {
-        height: 25px;
-        margin-bottom: 20px;
-        display: block; /* Ensure it takes space correctly */
-        text-align: center;
-    }
-    .sidebar .logo img { /* Style image inside logo link if needed */
-        height: 100%;
-        width: auto;
-        display: inline-block;
-    }
 
     .main-content {
         margin-top: 0;
-        margin-left: 250px; /* Adjusted for potential scrollbar */
+        margin-left: 250px;
         padding: 40px;
         transition: margin-left 0.3s ease-in-out;
         overflow-y: auto;
@@ -92,13 +101,13 @@
     .main-content h1.page-title {
         margin-bottom: 40px;
         color: white;
-        font-size: 2.25rem; /* 4xl */
+        font-size: 2.25rem;
         font-weight: 700;
     }
     .main-content h2.section-title {
-        font-size: 1.5rem; /* 2xl */
+        font-size: 1.5rem;
         font-weight: 700;
-        margin-bottom: 1rem; /* mb-3 or mb-4 */
+        margin-bottom: 1rem;
     }
 
     .section {
@@ -121,8 +130,8 @@
         transition: 0.3s ease;
         border: none;
         cursor: pointer;
-        display: inline-block; /* Ensure proper spacing and alignment */
-        text-decoration: none; /* Remove underline from links styled as buttons */
+        display: inline-block;
+        text-decoration: none;
         text-align: center;
     }
     .btn-primary:hover {
@@ -130,46 +139,45 @@
     }
 
     #subscription .subscription-info {
-        padding: 1rem; /* p-4 */
-        border: 1px solid #d1d5db; /* border-gray-300 */
-        border-radius: 0.5rem; /* rounded-lg */
-        background-color: #f9fafb; /* bg-gray-50 */
+        padding: 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background-color: #f9fafb;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 320px; /* Equivalent to w-80 */
+        max-width: 320px;
     }
     #subscription .subscription-info button {
-        color: #6B21A8; /* text-purple-600 */
-        font-size: 1.5rem; /* text-2xl */
-        font-weight: 700; /* font-bold */
+        color: #6B21A8;
+        font-size: 1.5rem;
+        font-weight: 700;
         background-color: transparent;
         border: none;
         cursor: pointer;
     }
     #subscription .subscription-info p.plan-name {
-        font-size: 1.125rem; /* text-lg */
-        font-weight: 600; /* font-semibold */
+        font-size: 1.125rem;
+        font-weight: 600;
     }
     #subscription .subscription-info p.plan-price {
-        color: #4b5563; /* text-gray-600 */
+        color: #4b5563;
     }
 
-    /* Desktop Solutions Styles */
     .desktop-solutions-container .solution-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px; /* gap-2.5 */
+        gap: 10px;
     }
     .desktop-solutions-container .solution-card,
     .desktop-solutions-container .see-more-widget {
-        width: calc(20% - 8px); /* Adjust based on gap, w-[20%] approximation */
-        min-width: 150px; /* Prevent excessive shrinking */
-        padding: 20px; /* p-5 */
-        border: 1px solid #d1d5db; /* border-gray-300 */
-        border-radius: 0.75rem; /* rounded-xl */
+        width: calc(20% - 8px);
+        min-width: 150px;
+        padding: 20px;
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
         background-color: white;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -179,44 +187,43 @@
     }
     .desktop-solutions-container .solution-card:hover,
     .desktop-solutions-container .see-more-widget:hover {
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
     .desktop-solutions-container .solution-card h3 {
-        font-size: 1.125rem; /* text-lg */
-        font-weight: 700; /* font-bold */
-        color: #1f2937; /* text-gray-800 */
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: #1f2937;
     }
     .desktop-solutions-container .solution-card p {
-        font-size: 0.875rem; /* text-sm */
-        color: #6b7280; /* text-gray-500 */
-        word-break: break-all; /* Ensure long domains don't overflow */
+        font-size: 0.875rem;
+        color: #6b7280;
+        word-break: break-all;
     }
     .desktop-solutions-container .solution-card .status-badge {
-        margin-top: 8px; /* mt-2 */
-        padding: 4px 12px; /* px-3 py-1 */
-        font-size: 0.875rem; /* text-sm */
-        font-weight: 600; /* font-semibold */
-        border-radius: 9999px; /* rounded-full */
+        margin-top: 8px;
+        padding: 4px 12px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 9999px;
     }
     .desktop-solutions-container .solution-card .status-badge.active {
-        background-color: #dcfce7; /* bg-green-200 */
-        color: #15803d; /* text-green-700 */
+        background-color: #dcfce7;
+        color: #15803d;
     }
     .desktop-solutions-container .solution-card .status-badge.inactive {
-        background-color: #fee2e2; /* bg-red-200 */
-        color: #b91c1c; /* text-red-700 */
+        background-color: #fee2e2;
+        color: #b91c1c;
     }
     .desktop-solutions-container .see-more-widget a {
-        color: #6B21A8; /* text-purple-600 */
-        font-size: 2.25rem; /* text-4xl */
-        font-weight: 700; /* font-bold */
+        color: #6B21A8;
+        font-size: 2.25rem;
+        font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
     }
 
-    /* Initially hide mobile */
      .mobile-solutions-list { display: none; }
 
     #bottomFooter {
@@ -244,19 +251,17 @@
         }
         .main-content h1.page-title {
             padding-top: 50px;
-            font-size: 1.875rem; /* 3xl */
+            font-size: 1.875rem;
         }
         .main-content h2.section-title {
-             font-size: 1.25rem; /* xl */
-             margin-bottom: 0.75rem; /* mb-3 */
+             font-size: 1.25rem;
+             margin-bottom: 0.75rem;
         }
 
-        /* Hide Desktop solutions */
         .desktop-solutions-container {
             display: none;
         }
 
-        /* Show and style Mobile Solutions */
         .mobile-solutions-list {
             display: block;
         }
@@ -272,23 +277,23 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #f3f4f6; /* gray-100 */
-            flex-wrap: wrap; /* Allow wrapping if content is long */
+            border-bottom: 1px solid #f3f4f6;
+            flex-wrap: wrap;
          }
          .mobile-solution-card div:last-child {
             border-bottom: none;
          }
         .mobile-solution-card .label {
             font-weight: 600;
-            color: #4b5563; /* gray-600 */
+            color: #4b5563;
             font-size: 0.875rem;
-            margin-right: 10px; /* Space between label and value */
+            margin-right: 10px;
         }
         .mobile-solution-card .value {
             font-size: 0.875rem;
-            color: #1f2937; /* gray-800 */
+            color: #1f2937;
             text-align: right;
-            flex-grow: 1; /* Allow value to take remaining space */
+            flex-grow: 1;
             word-break: break-all;
         }
         .mobile-solution-card .status-value .status-badge {
@@ -296,7 +301,7 @@
             border-radius: 0.5rem;
             color: white;
             font-size: 0.8rem;
-            display: inline-block; /* Ensure background applies correctly */
+            display: inline-block;
         }
         .mobile-solution-card .status-value .status-badge.active { background-color: #22c55e; }
         .mobile-solution-card .status-value .status-badge.inactive { background-color: #ef4444; }
@@ -306,22 +311,22 @@
             text-align: center;
             margin-top: 16px;
             padding: 10px;
-            background-color: #f3f4f6; /* gray-100 */
+            background-color: #f3f4f6;
             color: #6B21A8;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
         }
         .mobile-see-all-link:hover {
-             background-color: #e5e7eb; /* gray-200 */
+             background-color: #e5e7eb;
         }
 
         #subscription .subscription-info {
-            max-width: 100%; /* Allow full width on mobile */
+            max-width: 100%;
         }
 
         #bottomFooter {
-             padding-bottom: 20px; /* Ensure space at bottom */
+             padding-bottom: 20px;
         }
     }
   </style>
@@ -335,11 +340,16 @@
   </button>
 
   <div class="sidebar" id="sidebar">
-    <div class="flex justify-center mb-5">
+    <div class="sidebar-logo-container">
       <a href="/" class="flex items-center">
         <img src="{{ asset('images/logoQuentixsansRouNoir.svg') }}" alt="Quentix Logo" class="logo">
       </a>
     </div>
+
+    <div class="credits-display">
+        <span>Crédits : {{ Auth::user()->credits ?? 0 }} ✨</span>
+    </div>
+
     <a href="{{ route('user.space') }}">👤 Mon Profil</a>
     <a href="{{ route('sites.index') }}">🚀 Mes Solutions</a>
     <a href="{{ route('user.space') }}">📜 Mon Abonnement</a>
@@ -434,7 +444,7 @@
 
         @else
             <p class="text-gray-500">Aucune solution déployée.</p>
-                <a href="{{ route('sites.create') }}" class="btn-primary mt-4"> 
+                <a href="{{ route('sites.create') }}" class="btn-primary mt-4">
                 Déployer une Solution
             </a>
         @endif
@@ -509,13 +519,9 @@
         sidebar.querySelectorAll('a:not(.logo), button').forEach(element => {
            element.addEventListener('click', function(e) {
                 if (sidebar.classList.contains('active')) {
-                    // Allow default behavior (navigation or form submit) then close.
-                    // Check if it's a link and not part of the logout form
                     if (element.tagName === 'A' && !element.closest('form')) {
-                         // Use timeout to allow navigation before animation starts
                         setTimeout(() => sidebar.classList.remove('active'), 50);
                     }
-                    // You might keep it open for form submission or handle it differently
                 }
            });
         });
