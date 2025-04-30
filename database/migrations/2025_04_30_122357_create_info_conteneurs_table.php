@@ -24,9 +24,12 @@ return new class extends Migration
             // Foreign key for users table
 
             $table->dateTime('date_deploiement'); // Use dateTime for date and time, or just date() if time isn't needed
+            $table->string('id_user');
+            $table->string('type_application');
             $table->string('nom_conteneur');
             $table->string('chemin_pwd'); // Path (PWD)
             $table->string('nom_compose'); // Composite name
+            $table->string('url'); // Composite name
 
             $table->timestamps(); // Adds created_at and updated_at columns
         });
