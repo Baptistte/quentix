@@ -434,7 +434,7 @@
 
         @else
             <p class="text-gray-500">Aucune solution déployée.</p>
-            <a href="{{ route('solutions.wordpress') }}" class="btn-primary mt-4">
+                <a href="http://localhost:8000/sites/create" class="btn-primary mt-4">
                 Déployer une Solution
             </a>
         @endif
