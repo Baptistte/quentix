@@ -8,6 +8,8 @@ if [ ! -f /var/www/html/.env ]; then
 fi
 
 # Vérifier si les variables existent dans le fichier .env, sinon les ajouter
+grep -q "^APP_ENV=" /var/www/html/.env || echo "APP_ENV=production" >> /var/www/html/.env
+grep -q "^APP_DEBUG=" /var/www/html/.env || echo "APP_DEBUG=false" >> /var/www/html/.env
 grep -q "^APP_URL=" /var/www/html/.env || echo "APP_URL=http://localhost" >> /var/www/html/.env
 grep -q "^VITE_PORT=" /var/www/html/.env || echo "VITE_PORT=5173" >> /var/www/html/.env
 grep -q "^VITE_HOST=" /var/www/html/.env || echo "VITE_HOST=localhost" >> /var/www/html/.env
