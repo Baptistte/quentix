@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     npm \
     zlib1g-dev \
     libpng-dev \
+    dos2unix \
     default-mysql-client \
     && apt-get clean
 
@@ -30,6 +31,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN npm install
 
+RUN dos2unix entrypoint.sh
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
