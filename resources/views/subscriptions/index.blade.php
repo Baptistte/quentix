@@ -138,14 +138,15 @@
     <!-- Toggle Widget -->
     <div class="relative mt-10 flex bg-purple-900 p-1 rounded-full w-72 h-12 mx-auto">
       <div id="toggleIndicator" class="absolute top-1 left-1 w-1/2 h-10 bg-purple-500 rounded-full transition-all duration-300 ease-in-out"></div>
-      <button id="yearlyBtn" onclick="togglePricing('yearly')"
-        class="relative z-10 flex-1 px-6 py-2 text-white font-semibold text-center transition-all duration-300 rounded-full focus:outline-none">
-        Annuel
-      </button>
       <button id="monthlyBtn" onclick="togglePricing('monthly')"
         class="relative z-10 flex-1 px-6 py-2 text-white font-semibold text-center transition-all duration-300 rounded-full focus:outline-none">
         Mensuel
       </button>
+      <button id="yearlyBtn" onclick="togglePricing('yearly')"
+        class="relative z-10 flex-1 px-6 py-2 text-white font-semibold text-center transition-all duration-300 rounded-full focus:outline-none">
+        Annuel
+      </button>
+
     </div>
 
     <script>
@@ -154,41 +155,12 @@
           const yearlyBtn = document.getElementById("yearlyBtn");
           const monthlyBtn = document.getElementById("monthlyBtn");
 
-          if (plan === "yearly") {
+          if (plan === "monthly") {
               indicator.style.transform = "translateX(0%)";
               indicator.style.backgroundColor = "#9333ea"; // Violet foncé
               yearlyBtn.style.opacity = "1";
               monthlyBtn.style.opacity = "0.6";
 
-              // Plan Basique
-              document.getElementById('price-basic').innerHTML = `
-                <span class='text-4xl font-bold text-gray-900'>96 €</span>
-                <small class='text-gray-500'>/an</small>
-                <br>
-                <span class='text-xs text-gray-500'>(soit 8€/mois)</span>
-              `;
-
-              // Plan Pro
-              document.getElementById('price-pro').innerHTML = `
-                <span class='text-4xl font-bold text-gray-900'>300 €</span>
-                <small class='text-gray-500'>/an</small>
-                <br>
-                <span class='text-xs text-gray-500'>(soit 25€/mois)</span>
-              `;
-
-              // Plan Entreprise
-              document.getElementById('price-enterprise').innerHTML = `
-                <span class='text-4xl font-bold text-gray-900'>960 €</span>
-                <small class='text-gray-500'>/an</small>
-                <br>
-                <span class='text-xs text-gray-500'>(soit 80€/mois)</span>
-              `;
-
-          } else {
-              indicator.style.transform = "translateX(95%)";
-              indicator.style.backgroundColor = "#a855f7"; // Violet clair
-              monthlyBtn.style.opacity = "1";
-              yearlyBtn.style.opacity = "0.6";
 
               // Plan Basique
               document.getElementById('price-basic').innerHTML = `
@@ -207,6 +179,39 @@
                 <span class='text-4xl font-bold text-gray-900'>100 €</span>
                 <span class='text-gray-500'>/ mois</span>
               `;
+          } else {
+              indicator.style.transform = "translateX(95%)";
+              indicator.style.backgroundColor = "#a855f7"; // Violet clair
+              monthlyBtn.style.opacity = "1";
+              yearlyBtn.style.opacity = "0.6";
+
+
+              // Plan Basique
+              document.getElementById('price-basic').innerHTML = `
+                <span class='text-4xl font-bold text-gray-900'>8 €</span>
+                <small class='text-gray-500'>/mois</small>
+                <br>
+                <span class='text-xs text-gray-500'>(soit 96€/an)</span>
+              `;
+
+              // Plan Pro
+              document.getElementById('price-pro').innerHTML = `
+                <span class='text-4xl font-bold text-gray-900'>25 €</span>
+                <small class='text-gray-500'>/mois</small>
+                <br>
+                <span class='text-xs text-gray-500'>(soit 300€/an)</span>
+              `;
+
+              // Plan Entreprise
+              document.getElementById('price-enterprise').innerHTML = `
+                <span class='text-4xl font-bold text-gray-900'>80 €</span>
+                <small class='text-gray-500'>/mois</small>
+                <br>
+                <span class='text-xs text-gray-500'>(soit 960€/mois)</span>
+              `;
+
+
+
           }
       }
     </script>

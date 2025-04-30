@@ -132,7 +132,9 @@
   </header>
 
   <!-- Mobile Menu Overlay -->
+  <!-- Mobile Menu Overlay -->
   <div id="mobile-menu" class="mobile-menu flex flex-col">
+    <button class="mobile-menu-close" id="mobile-menu-close-button" aria-label="Close Menu"></button> {{-- BOUTON AJOUTÉ --}}
     <a href="#features" class="hover:text-blue-300 transition">Services</a>
     <a href="#about" class="hover:text-blue-300 transition">À propos</a>
     <a href="#contact" class="hover:text-blue-300 transition">Contacter nous</a>
@@ -141,8 +143,9 @@
       <a href="{{ route('user.space') }}" class="hover:text-blue-300 transition">Espace Utilisateur</a>
       <form action="{{ route('logout') }}" method="POST" class="inline">
         @csrf
-        <button type="submit" class="flex items-center text-white hover:text-red-500 transition">
-          <span class="ml-2">Déconnexion</span>
+        {{-- Style button like a link --}}
+        <button type="submit" class="hover:text-red-500 transition text-white text-xl font-semibold">
+          Déconnexion
         </button>
       </form>
     @else
@@ -412,17 +415,31 @@
     </div>
   </footer>
 
-  <!-- Script pour le menu mobile -->
   <script>
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => {
-      if (mobileMenu.style.display === "flex") {
-        mobileMenu.style.display = "none";
-      } else {
+    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+    const mobileMenuElements = mobileMenu.querySelectorAll('a, button'); // Select links and buttons
+
+    function openMenu() {
         mobileMenu.style.display = "flex";
-      }
-    });
+    }
+    function closeMenu() {
+        mobileMenu.style.display = "none";
+    }
+
+    if (mobileMenuButton && mobileMenu && mobileMenuCloseButton) {
+        mobileMenuButton.addEventListener('click', openMenu);
+        mobileMenuCloseButton.addEventListener('click', closeMenu);
+
+        mobileMenuElements.forEach(el => {
+            el.addEventListener('click', () => {
+                if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+                   closeMenu(); // Close menu on click of any link or button inside
+                }
+            });
+        });
+    }
   </script>
 </body>
 </html>
