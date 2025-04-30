@@ -8,9 +8,11 @@ if [ ! -f /var/www/html/.env ]; then
 fi
 
 # Vérifier si les variables existent dans le fichier .env, sinon les ajouter
-grep -q "^APP_URL=" /var/www/html/.env || echo "APP_URL=http://localhost" >> /var/www/html/.env
-grep -q "^VITE_PORT=" /var/www/html/.env || echo "VITE_PORT=5173" >> /var/www/html/.env
-grep -q "^VITE_HOST=" /var/www/html/.env || echo "VITE_HOST=localhost" >> /var/www/html/.env
+sed -i 's|^APP_URL=.*|APP_URL=http://51.210.216.50:30000|' /var/www/html/.env
+sed -i 's|^VITE_DEV_SERVER_URL=.*|VITE_DEV_SERVER_URL=http://51.210.216.50:30000|' /var/www/html/.env
+sed -i 's|^VITE_HOST=.*|VITE_HOST=0.0.0.0|' /var/www/html/.env
+sed -i 's|^VITE_PORT=.*|VITE_PORT=5173|' /var/www/html/.env
+
 
 # Forcer les variables MySQL
 sed -i 's|DB_CONNECTION=.*|DB_CONNECTION=mysql|' /var/www/html/.env
