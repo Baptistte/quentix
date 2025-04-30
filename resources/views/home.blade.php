@@ -200,7 +200,7 @@
               <li>Extensions essentielles pour SEO et performances.</li>
             </ul>
             <div class="text-center">
-              <a href="/wordpress_presentation" class="px-6 py-3 bg-purple-700 text-white rounded-lg shadow-md hover:bg-purple-800 transition">
+              <a href="{{ route('sites.create') }}" class="px-6 py-3 bg-purple-700 text-white rounded-lg shadow-md hover:bg-purple-800 transition">
                 Voir plus
               </a>
             </div>
